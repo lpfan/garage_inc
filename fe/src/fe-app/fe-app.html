@@ -1,5 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
+<link rel="import" href="meter-component.html">
+
 <dom-module id="fe-app">
   <template>
     <style>
@@ -7,24 +9,15 @@
         display: block;
       }
     </style>
-    <h2>Hello [[prop1]]!</h2>
+
+  <h2>Core Module</h2>
+  <meter-component meter-header="Humidity" meter-value="%">
+  </meter-component>
   </template>
 
   <script>
-    /**
-     * @customElement
-     * @polymer
-     */
     class FeApp extends Polymer.Element {
       static get is() { return 'fe-app'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'fe-app'
-          }
-        };
-      }
     }
 
     window.customElements.define(FeApp.is, FeApp);

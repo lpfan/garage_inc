@@ -1,0 +1,137 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../bower_components/iron-grid/iron-grid.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
+
+<dom-module id="meter-component">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .meterBox {
+        border: 1px #000 solid;
+        display: block;
+        height: 400px;
+        width: 200px;
+      }
+      
+      .meterBox ul {
+        padding: 0;
+        margin: 0;
+      }
+
+      .meterItem {
+        background: #003366;
+        height: 4px;
+        margin: 2px 0 0 0;
+        list-style-type: none;
+      }
+    </style>
+
+    <div>
+      <h2>[[ meterHeader ]], [[ meterValue ]]</h2>
+      <iron-grid>
+        <div class="s4">
+          <div class="meterBox">
+            <ul>
+              <template is="dom-repeat" items="{{ _meterLevelArray }}">
+                <li class="meterItem"></li>
+              </template>
+            </ul>
+          </div>
+        </div>
+        <div class="s4">
+          Meter Level [[ _meterLevel ]]
+        </div>
+        <div class="s4">
+          <paper-slider step="1" value="{{ meterCurrentValue }}"></paper-slider>
+        </div>
+
+      </iron-grid>
+    </div>
+  </template>
+
+  <script>
+    class MeterComponent extends Polymer.Element {
+      static get is() { return 'meter-component'; }
+
+      constructor() {
+        super();
+      }
+
+      ready() {
+        super.ready();
+      }
+
+      static get properties() {
+        return {
+          meterCurrentValue: {
+            type:Number,
+            value: 1
+          },
+          meterValue: String,
+          meterHeader: String,
+          _meterLevelArray: {
+            type: Array,
+            value() {
+              return [0,0,0]
+            }
+          },
+          _meterLevel: {
+            type: Number,
+            computed: '_computeMeterLevel(meterCurrentValue, _meterMaxValue)'
+          },
+          _meterCurrentLevel: {
+            type: Number,
+            value: 0
+          },
+          _meterCurrentItemCount: {
+            type: Number,
+            computed: '_computeMeterCurrentItemCount(_meterLevel)'
+          },
+          _meterMaxValue: {
+            type: Number,
+            value: 100
+          },
+          _meterItemSpace: {
+            type: Number,
+            value: 2
+          },
+          _meterItemHeight: {
+            type: Number,
+            value: 4
+          },
+          _meterHeight: {
+            type: Number,
+            value: 400
+          }
+        }
+      }
+
+      _computeMeterLevel (currentValue, maxValue) {
+        return currentValue / maxValue * 100;
+      }
+
+      _computeMeterCurrentItemCount(meterLevel) {
+        var meterCurrentLevel = 0;
+        var meterCurrentItemCount = 0;
+        var currentHeight = 0;
+
+        while (meterCurrentLevel < meterLevel) {
+          meterCurrentItemCount += 1;
+          currentHeight = meterCurrentItemCount * (this._meterItemHeight + this._meterItemSpace);
+          meterCurrentLevel = currentHeight / this._meterHeight * 100;
+        }
+
+        this._meterLevelArray = new Array(meterCurrentItemCount).fill(0);
+
+        return meterCurrentItemCount;
+      }
+
+    }
+
+    window.customElements.define(MeterComponent.is, MeterComponent);
+  </script>
+</dom-module>
