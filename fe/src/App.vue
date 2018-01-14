@@ -2,30 +2,14 @@
   <div id="app">
     <v-app>
       <v-content>
-        <v-toolbar dark color="primary">
-          <v-toolbar-side-icon></v-toolbar-side-icon>
-          <v-toolbar-title class="white--text">Garage Inc.</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>search</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>apps</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>refresh</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>more_vert</v-icon>
-          </v-btn>
-        </v-toolbar>
+        <app-header></app-header>
         <v-container fluid>
           <v-layout row wrap>
             <v-flex sm4>
-              Sidebar
+              <app-sidebar></app-sidebar>
             </v-flex>
             <v-flex sm8>
-              Content
+              <app-content></app-content>
             </v-flex>
           </v-layout>
         </v-container>
@@ -35,14 +19,23 @@
 </template>
 
 <script>
-export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  import Header from './components/header.vue';
+  import Sidebar from './components/sidebar.vue';
+  import Content from './components/content.vue';
+
+  export default {
+    name: 'app',
+    data () {
+      return {
+        msg: 'Welcome to Your Vue.js App'
+      }
+    },
+    components: {
+      AppHeader: Header,
+      AppSidebar: Sidebar,
+      AppContent: Content
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
