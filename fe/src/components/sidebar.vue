@@ -1,17 +1,14 @@
 <template>
-    <v-card flat color="white">
-        <v-card-text>
-            <div>
-              <v-btn color="primary">
-                  <v-icon>mdi-lightbulb-on-outline</v-icon>
-                  Light
-              </v-btn>
-            </div>
-            <div>
-              <v-btn color="primary">Climate</v-btn>
-            </div>
-        </v-card-text>
-    </v-card>
+  <v-flex>
+      <router-link to="/light" tag="v-btn" active-class="blue lighten-3">
+        <v-icon>mdi-lightbulb-on-outline</v-icon>
+        Light
+     </router-link>
+     <router-link to="/climate" tag="v-btn" active-class="blue lighten-3">
+        <v-icon>mdi-fan</v-icon>
+        Climate
+     </router-link>
+  </v-flex>
 </template>
 
 <style lang="sass">
