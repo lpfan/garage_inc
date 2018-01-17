@@ -88,8 +88,8 @@ export default {
   methods: {
       tapLamp(lampNum, event) {
           event.preventDefault();
-          this.lampState[lampNum] = !this.lampState[lampNum];
-          if ( this.lampState[lampNum] == false ) {
+          this.$store.dispatch('switchLamp', lampNum);
+          if ( this.$store.getters.lampState(lampNum) == false ) {
               jquery(event.target).removeClass().addClass('red darken-1');
           } else {
               jquery(event.target).removeClass().addClass('light-green darken-1');
