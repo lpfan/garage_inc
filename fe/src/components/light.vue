@@ -4,16 +4,22 @@
     <v-flex sm8>
         <div class="garage-box">
             <div class="lamp left-side-lamp top-side-lamp">
+                <button v-on:click="tapLamp(1, $event)" class="red darken-1"></button>
             </div>
             <div class="lamp left-side-lamp bottom-side-lamp">
+                <button v-on:click="tapLamp(2, $event)" class="red darken-1"></button>
             </div>
             <div class="lamp right-side-lamp top-side-lamp">
+                <button v-on:click="tapLamp(3, $event)" class="red darken-1"></button>
             </div>
             <div class="lamp right-side-lamp bottom-side-lamp">
+                <button v-on:click="tapLamp(4, $event)" class="red darken-1"></button>
             </div>
             <div class="lamp middle-side-lamp top-side-lamp">
+                <button v-on:click="tapLamp(5, $event)" class="red darken-1"></button>
             </div>
             <div class="lamp middle-side-lamp bottom-side-lamp">
+                <button v-on:click="tapLamp(6, $event)" class="red darken-1"></button>
             </div>
         </div>
     </v-flex>
@@ -29,7 +35,6 @@
     }
 
     .lamp {
-        border: 1px solid #000;
         height: 150px;
         margin: 10px 0;
         position: absolute;
@@ -42,6 +47,11 @@
 
     .right-side-lamp {
         right: 10px;
+    }
+
+    .lamp button {
+        height: 100%;
+        width: 100%;
     }
 
     .middle-side-lamp {
@@ -63,6 +73,28 @@
 
 <script>
 export default {
-  
+  data() {
+      return {
+          lampState: {
+            1: false,
+            2: false,
+            3: false,
+            4: false,
+            5: false,
+            6: false
+          }
+      }
+  },
+  methods: {
+      tapLamp(lampNum, event) {
+          event.preventDefault();
+          this.lampState[lampNum] = !this.lampState[lampNum];
+          if ( this.lampState[lampNum] == false ) {
+              jquery(event.target).removeClass().addClass('red darken-1');
+          } else {
+              jquery(event.target).removeClass().addClass('light-green darken-1');
+          }
+      }
+  }
 }
 </script>
