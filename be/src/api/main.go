@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -15,11 +16,11 @@ var (
 		"pin1": rpio.Pin(1),
 		"pin2": rpio.Pin(2),
 	}
-
-	type req struct {
-		lampNumber int
-	}
 )
+
+type reqPayload struct {
+	lampNumber int
+}
 
 func main() {
 	router := mux.NewRouter()
@@ -39,12 +40,12 @@ func turnLamp(w http.ResponseWriter, r *http.Request) {
 	}
 	defer rpio.Close()
 	decoder := json.NewDecoder(r.Body)
-	var requset req
-	err = decoder.Decode(&request)
-	
+	var rPayload reqPayload
+	err := decoder.Decode(&rPayload)
+
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	defer req.Body.Close()
+	defer r.Body.Close()
 }
