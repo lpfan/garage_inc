@@ -11,7 +11,7 @@ def cli():
 @cli.command()
 def run_app():
     app = create_application()
-    if app.config.debug == True:
+    if app.config['DEBUG'] == True:
         app.run(host='0.0.0.0')
     else:
         app.run()
