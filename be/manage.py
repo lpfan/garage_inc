@@ -11,7 +11,10 @@ def cli():
 @cli.command()
 def run_app():
     app = create_application()
-    app.run()
+    if app.config.debug == True:
+        app.run(host='0.0.0.0')
+    else:
+        app.run()
 
 
 if __name__ == '__main__':

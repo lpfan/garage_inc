@@ -9,6 +9,6 @@ class Index(Resource):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.cleanup()
-        instance = dht11.DHT11(pin = 4)
+        instance = DHT11(pin = 4)
         result = instance.read()
         return {'temperature': result.temperature, 'humidity': result.humidity}
