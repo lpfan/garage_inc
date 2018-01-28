@@ -1,6 +1,14 @@
+import RPi.GPIO as GPIO
 from flask_restful import Resource
+
+from .dht11 import DHT11
 
 
 class Index(Resource):
     def get(self):
-        return {'hello': 'world'}
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.cleanup()
+        instance = dht11.DHT11(pin = 4)
+        result = instance.read()
+        return {'temperature': result.temperature, 'humidity': result.humidity}
