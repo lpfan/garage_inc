@@ -1,12 +1,11 @@
-import RPi.GPIO as GPIO
+import Adafruit_DHT
 from flask_restful import Resource
 
-from .dht11 import DHT11
+
+sensor = Adafruit_DHT.DHT11
 
 
 class Index(Resource):
     def get(self):
-        GPIO.setmode(GPIO.BCM)
-        instance = DHT11(pin = 4)
-        result = instance.read()
-        return {'temperature': result.temperature, 'humidity': result.humidity}
+        humidity, temperature = Adafruit_DHT.read_retry(sensor, 4)
+        return {'temperature': temperature, 'humidity': humidity}
